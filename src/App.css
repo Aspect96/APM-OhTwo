@@ -13,7 +13,7 @@
   }
 }
 
-.App-header {
+.App-welcome {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -24,8 +24,38 @@
   color: white;
 }
 
+.App .AppHeader {
+  height: 56px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  background-color: #EFEFEF;
+}
+
+.AppNav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.AppNavItem {
+  display: inline-block;
+  margin: 20px;
+}
+
+.AppNavItem:hover {
+  color: #fa923f;
+  cursor: pointer;
+}
+
 .App-link {
   color: #61dafb;
+}
+
+.app-welcome {
+  font-size: 20px;
 }
 
 @keyframes App-logo-spin {
