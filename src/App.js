@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, NavLink, Switch, Route, Redirect } from 'react-router-dom'
 
-import logo from './logo.svg';
+// icon from https://www.freepik.com/free-icon/oxygen_720197.htm
+import logo from './o2_icon.svg';
 import './App.css';
 
 class App extends Component {
