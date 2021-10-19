@@ -45,9 +45,23 @@
   margin: 20px;
 }
 
-.AppNavItem:hover {
+.AppNavItem.left {
+  float: left;
+}
+
+.AppNavItem.right {
+  float: right;
+}
+
+.AppNavLink {
+  text-decoration: none;
+  color: black;
+}
+
+.AppNavLink:hover,
+.AppNavLink:active,
+.AppNavLink.active {
   color: #fa923f;
-  cursor: pointer;
 }
 
 .App-link {

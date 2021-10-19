@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { BrowserRouter, NavLink, Switch, Route, Redirect } from 'react-router-dom'
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -8,14 +10,25 @@ class App extends Component {
       <header class="AppHeader">
         <nav>
           <ul class="AppNav">
-            <li class="AppNavItem">
+            <li class="AppNavItem left">
+              <NavLink className="AppNavLink" to="/" exact>
+                Home
+              </NavLink>
+            </li>
+            <li class="AppNavItem left">
+              <NavLink className="AppNavLink" to="/items">
                 Items
+              </NavLink>
             </li>
-            <li class="AppNavItem">
+            <li class="AppNavItem right">
+              <NavLink className="AppNavLink" to="/profile">
                 Profile
+              </NavLink>
             </li>
-            <li class="AppNavItem">
+            <li class="AppNavItem right">
+              <NavLink className="AppNavLink" to="/login">
                 Login
+              </NavLink>
             </li>
           </ul>
         </nav>
@@ -41,10 +54,27 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        {this.renderNavBar()}
-        {this.renderWelcome()}
-      </div>
+      <BrowserRouter basename="/ohtwo">
+        <div className="App">
+          {this.renderNavBar()}
+
+          <Switch>
+            <Route path="/items">
+              <div></div>
+            </Route>
+            <Route path="/profile">
+              <div></div>
+            </Route>
+            <Route path="/login">
+              <div></div>
+            </Route>
+            <Route path="/" exact>
+              {this.renderWelcome()}
+            </Route>
+          </Switch>
+
+        </div>
+      </BrowserRouter>
     )
   }
 }
