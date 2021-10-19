@@ -1,54 +1,17 @@
 import React, { Component } from 'react';
-import { BrowserRouter, NavLink, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-// icon from https://www.freepik.com/free-icon/oxygen_720197.htm
-import logo from './o2_icon.svg';
 import './App.css';
 
+import About from './components/About'
+import Menu  from './components/Menu';
+import Home  from './components/Home';
+
 class App extends Component {
-  renderNavBar() {
+  renderNavBar() { // Left this here so that we can change the menu when the user is logged in.
     return (
       <header class="AppHeader">
-        <nav>
-          <ul class="AppNav">
-            <li class="AppNavItem left">
-              <NavLink className="AppNavLink" to="/" exact>
-                Home
-              </NavLink>
-            </li>
-            <li class="AppNavItem left">
-              <NavLink className="AppNavLink" to="/items">
-                Items
-              </NavLink>
-            </li>
-            <li class="AppNavItem right">
-              <NavLink className="AppNavLink" to="/profile">
-                Profile
-              </NavLink>
-            </li>
-            <li class="AppNavItem right">
-              <NavLink className="AppNavLink" to="/login">
-                Login
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    )
-  }
-  renderWelcome() {
-    return (
-      <header className="App-welcome">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p id="app-name">
-          0 Waste 2 Life
-        </p>
-        <p class="app-welcome">
-          Got something you don't want anymore? Need something but it is too expensive?
-        </p>
-        <p class="app-welcome">
-          Then you are in the right place!
-        </p>
+        <Menu />
       </header>
     )
   }
@@ -60,18 +23,11 @@ class App extends Component {
           {this.renderNavBar()}
 
           <Switch>
-            <Route path="/items">
-              <div></div>
-            </Route>
-            <Route path="/profile">
-              <div></div>
-            </Route>
-            <Route path="/login">
-              <div></div>
-            </Route>
-            <Route path="/" exact>
-              {this.renderWelcome()}
-            </Route>
+            <Route path="/items" />
+            <Route path="/profile" />
+            <Route path="/login" />
+            <Route path="/" exact component={Home} />
+            <Route path="/about" component={About} />
           </Switch>
 
         </div>
