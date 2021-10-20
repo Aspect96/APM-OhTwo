@@ -1,0 +1,33 @@
+.Menu-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .Menu-nav-item {
+    display: inline-block;
+    margin: 20px;
+  }
+  
+  .Menu-nav-item.left {
+    float: left;
+  }
+  
+  .Menu-nav-item.right {
+    float: right;
+  }
+  
+  .Menu-nav-link {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .Menu-nav-link:hover,
+  .Menu-nav-link:active,
+  .Menu-nav-link.active {
+    color: #fa923f;
+  }
+  
+  .Menu-link {
+    color: #61dafb;
+  }

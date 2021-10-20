@@ -2,38 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
-.App-welcome {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-secondary {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
 .App .AppHeader {
   height: 56px;
   width: 100%;
@@ -43,50 +11,3 @@
   z-index: 90;
   background-color: #EFEFEF;
 }
-
-.AppNav {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.AppNavItem {
-  display: inline-block;
-  margin: 20px;
-}
-
-.AppNavItem.left {
-  float: left;
-}
-
-.AppNavItem.right {
-  float: right;
-}
-
-.AppNavLink {
-  text-decoration: none;
-  color: black;
-}
-
-.AppNavLink:hover,
-.AppNavLink:active,
-.AppNavLink.active {
-  color: #fa923f;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-.app-welcome {
-  font-size: 20px;
-}
-
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

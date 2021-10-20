@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import './App.css';
 
-import About from './components/About'
-import Menu  from './components/Menu';
-import Home  from './components/Home';
+import About from './components/About/About';
+import Menu  from './components/Menu/Menu';
+import Home  from './components/Home/Home';
 
 class App extends Component {
   renderNavBar() { // Left this here so that we can change the menu when the user is logged in.
