@@ -1,9 +1,20 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions';
 
 import './Menu.css'
 
 class Menu extends React.Component {
+  constructor(props) {
+    super(props)
+    this.authStart = this.authStart.bind(this)
+  }
+
+  authStart() {
+    this.props.auth();
+  }
+
   render() { 
     return (
       <nav>
@@ -29,8 +40,8 @@ class Menu extends React.Component {
             </NavLink>
           </li>
           <li class="Menu-nav-item right">
-            <NavLink className="Menu-nav-link" to="/login">
-              Login
+            <NavLink className="Menu-nav-link" to="/login" onClick={this.authStart}>
+              {"Login - " + this.props.isAuth}
             </NavLink>
           </li>
         </ul>
@@ -38,5 +49,17 @@ class Menu extends React.Component {
     );
   }
 }
- 
-export default Menu;
+
+const mapStateToProps = state => {
+  return {
+      isAuth: state.auth.token !== null
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      auth: () => dispatch(actionCreators.auth())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu)
