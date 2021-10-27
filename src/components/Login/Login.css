@@ -1,14 +1,10 @@
-.About {
+.Login {
     margin-top: 56px;
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: center;
     color: white;
-}
-
-.members {
-    text-align: left;
 }

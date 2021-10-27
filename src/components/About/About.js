@@ -4,7 +4,7 @@ import './About.css'
 
 function About() { // TODO: We need to add css for normal pages that are not centered. And is not overlapped by the menu
   return (
-    <div class="About"> 
+    <div className="About"> 
       <h1>OhTwo - 0 Waste 2 Life</h1>
       <p>This is an application developed for the University of Luxembourg course:</p>
       <p>MICS-COMMSYST-027: Advanced Project Management</p>

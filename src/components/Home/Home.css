@@ -4,6 +4,7 @@
 }
   
 .Home-welcome {
+    margin-top: 56px;
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
