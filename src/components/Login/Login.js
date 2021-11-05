@@ -1,11 +1,15 @@
 import React from 'react';
+import './Login.css'
 
-import './Login.css';
-
-function Login() {
+const Login = () => {
   return (
-    <div className="Login"> 
-      <h1>Login Page</h1>
+    <div class="Login">
+      <h2>Login</h2>
+      <input />
+
+      <input />
+
+      <button>Login</button>
     </div>
   );
 }
