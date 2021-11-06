@@ -1,13 +1,12 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .App .AppHeader {
   height: 56px;
   width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 90;
   background-color: #EFEFEF;
 }
