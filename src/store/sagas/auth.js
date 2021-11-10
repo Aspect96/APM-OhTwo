@@ -30,25 +30,25 @@ export function* authUserSaga(action) {
     
 
     // comment if development case if you want to test in dev the cconnection with firebase
-    if (process.env.NODE_ENV === 'development') {
-        yield delay(1000)
-        yield updateData('ohtwo-test-account', 'vini1', 3600)
-    } else {
-        try {
-            const response = yield axios.post(url, data)
-            
-            let { localId, idToken, expiresIn } = response.data
-            yield updateData(idToken, localId, expiresIn)
-        } catch (error) {
-            const err = error.response ?
-                error.response.data.error :
-                error.request ?
-                    error.request :
-                    error.message
-            console.log(err)
-            yield put(actionCreators.authFail(err))
-        }
+    // if (process.env.NODE_ENV === 'development') {
+    //     yield delay(1000)
+    //     yield updateData('ohtwo-test-account', 'vini1', 3600)
+    // } else {
+    try {
+        const response = yield axios.post(url, data)
+        
+        let { localId, idToken, expiresIn } = response.data
+        yield updateData(idToken, localId, expiresIn)
+    } catch (error) {
+        const err = error.response ?
+            error.response.data.error :
+            error.request ?
+                error.request :
+                error.message
+        console.log(err)
+        yield put(actionCreators.authFail(err))
     }
+    // }
 }
 
 function* updateData(idToken, localId, expiresIn) {

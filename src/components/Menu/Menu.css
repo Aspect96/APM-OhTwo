@@ -21,6 +21,11 @@
     text-decoration: none;
     color: black;
   }
+
+  .Menu-nav-link.logout {
+    font-size: 10px;
+    color: red;
+  }
   
   .Menu-nav-link:hover,
   .Menu-nav-link:active,

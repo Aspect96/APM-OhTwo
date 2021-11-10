@@ -8,13 +8,11 @@ import './Menu.css'
 class Menu extends React.Component {
   constructor(props) {
     super(props)
-    this.authStart = this.authStart.bind(this)
+    this.userLogout = this.userLogout.bind(this)
   }
 
-  authStart() {
-    // hardcoded for now, need to create form. set false for signIn andd true for signUp
-    // "test@test.com":"test123" already exists in firebase, so signIn return success and signUp return fail
-    this.props.auth("test@test.com","test123",false);
+  userLogout() {
+    this.props.logout()
   }
 
   render() { 
@@ -31,21 +29,33 @@ class Menu extends React.Component {
               Items
             </NavLink>
           </li>
+
+          { !this.props.isAuth &&
+            <li className="Menu-nav-item right">
+              <NavLink className="Menu-nav-link" to="/login" >
+                {"Login"}
+              </NavLink>
+            </li>
+          }
+          { this.props.isAuth &&
+            <li className="Menu-nav-item right">
+              <NavLink className="Menu-nav-link logout" to={"/"} exact onClick={this.userLogout}>
+                {"Logout"}
+              </NavLink>
+            </li>
+          }
           <li className="Menu-nav-item right">
             <NavLink className="Menu-nav-link" to="/about">
               About
             </NavLink>
           </li>
-          <li className="Menu-nav-item right">
-            <NavLink className="Menu-nav-link" to="/profile">
-              Profile
-            </NavLink>
-          </li>
-          <li className="Menu-nav-item right">
-            <NavLink className="Menu-nav-link" to="/login" onClick={this.authStart}>
-              {"Login - " + this.props.isAuth}
-            </NavLink>
-          </li>
+          { this.props.isAuth &&
+            <li className="Menu-nav-item right">
+              <NavLink className="Menu-nav-link" to="/profile">
+                Profile
+              </NavLink>
+            </li>
+          }
         </ul>
       </nav>
     );
@@ -60,7 +70,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      auth: (email, password, isSignup) => dispatch(actionCreators.auth(email, password, isSignup))
+      // auth: (email, password, isSignup) => dispatch(actionCreators.auth(email, password, isSignup))
+      logout: () => dispatch(actionCreators.authLogoutStart())
   }
 }
 

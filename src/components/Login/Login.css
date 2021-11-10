@@ -8,3 +8,39 @@
   color: white;
   flex-grow: 1;
 }
+
+.Login-form {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Login-form-submit-btn {
+  width: 40%;
+}
+
+.Login-input {
+  font-size: 16px;
+}
+
+.Login-input-wrap {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.Login-input-error {
+  margin: 0;
+  font-size: 10px;
+  color: #ff3333;
+}
+
+.Login-input-error.invisible {
+  visibility: hidden;
+}
+
+.Login-auth-error {
+  color: #ff3333;
+  font-size: 16px;
+}
