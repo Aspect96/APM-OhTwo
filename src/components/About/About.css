@@ -8,6 +8,24 @@
     flex-grow: 1;
 }
 
+.About-project-name {
+    color: #fa923f;
+}
+
+.About-story {
+    font-style: italic;
+    width: 60%;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.About-company {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .members {
     text-align: left;
 }
