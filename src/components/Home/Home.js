@@ -9,10 +9,10 @@ const Home = () => (
     <p id="project-name">
       0 Waste 2 Life
     </p>
-    <p class="Home-welcome-text">
+    <p className="Home-welcome-text">
       Got something you don't want anymore? Need something but it is too expensive?
     </p>
-    <p class="Home-welcome-text">
+    <p className="Home-welcome-text">
       Then you are in the right place!
     </p>
   </div>

@@ -3,7 +3,7 @@ import React from 'react';
 import './About.css'
 
 const About = () => (
-  <div class="About"> 
+  <div className="About"> 
     <h1>OhTwo - 0 Waste 2 Life</h1>
     <p>
       In the fight against waste and in order to help find sustainability, 0 Waste 2 Life’s mission consists in giving items a second life.
