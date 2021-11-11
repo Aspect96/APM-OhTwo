@@ -8,6 +8,9 @@ import { watchAuth } from './store/sagas';
 import reducer from './store/reducers';
 
 import './App.css';
+import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 import About from './components/About/About';
 import Menu  from './components/Menu/Menu';
