@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../../o2_icon.svg'; // icon from https://www.freepik.com/free-icon/oxygen_720197.htm
 import { InputText } from 'primereact/inputtext';
+import TextField from '@material-ui/core/TextField';
 
 import './Home.css'
 
@@ -32,6 +33,8 @@ class Home extends Component{
   
         {/* Added by Damian - can delete later - only ofr test purpouses */}
         <div>
+          <TextField id="outlined-basic" label="Username" variant="outlined" onChange={(e) => this.setState({value1: e.target.value})} />
+
           {/* <div className="card"> */}
               <h5>Basic</h5>
               <InputText value={this.state.value1} onChange={(e) => this.setState({value1: e.target.value})} />
