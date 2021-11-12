@@ -41,7 +41,14 @@ class Login extends Component {
       }
     },
     valid: false,
-    isRegister: false
+    isRegister: false,
+    userInformation: {
+      firstName: 'Vinicius',
+      lastName: 'Cechin',
+      address: 'Av. Blablabla',
+      city: 'Luxembourg',
+      phone: ''
+    }
   }
 
   checkValidity = (value, rules) => {
@@ -90,7 +97,7 @@ class Login extends Component {
 
   authHandler = (event) => {
     event.preventDefault()
-    this.props.auth(this.state.form.email.value, this.state.form.password.value, this.state.isRegister)
+    this.props.auth(this.state.form.email.value, this.state.form.password.value, this.state.isRegister, this.state.userInformation)
   }
 
   toggleAuthModeHandler = () => {
@@ -167,7 +174,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
       // "test@test.com","test123",false
-      auth: (email, password, isRegister) => dispatch(actionCreators.auth(email, password, isRegister)),
+      auth: (email, password, isRegister, userInformation) => dispatch(actionCreators.auth(email, password, isRegister, userInformation)),
   }
 }
 

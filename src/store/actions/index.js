@@ -1,5 +1,6 @@
 export {
     auth,
+    saveUserDataOnFirebase,
     authSent,
     authLogout,
     authFail,

@@ -53,11 +53,21 @@ export const authLogout = () => {
 //     }
 // }
 
-export const auth = (email, password, isSignUp) => {
+export const auth = (email, password, isSignUp, userInformation) => {
     return {
         type: actionTypes.AUTH_START,
         email,
         password,
-        isSignUp
+        isSignUp,
+        userInformation
+    }
+}
+
+export const saveUserDataOnFirebase = (userId, token, userInformation) => {
+    return {
+        type: actionTypes.AUTH_SAVE_USER_DATA,
+        userInformation,
+        token,
+        userId
     }
 }

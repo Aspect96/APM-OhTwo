@@ -1,5 +1,5 @@
 import { put, delay, call } from 'redux-saga/effects'
-import axios from 'axios'
+import axios from '../../services/firebase'
 
 import * as actionCreators from '../actions'
 
@@ -39,6 +39,7 @@ export function* authUserSaga(action) {
         
         let { localId, idToken, expiresIn } = response.data
         yield updateData(idToken, localId, expiresIn)
+        yield put(actionCreators.saveUserDataOnFirebase(localId, idToken, { ...action.userInformation, email: action.email }))
     } catch (error) {
         const err = error.response ?
             error.response.data.error :
@@ -75,3 +76,15 @@ function* updateData(idToken, localId, expiresIn) {
 //         yield put(actionCreators.authLogoutStart())
 //     }
 // }
+
+export function* saveUserDataSaga(action) {
+    // yield put(actionCreators.saveUserDataSent())
+
+    try {
+        /*const response =*/ yield axios.post(`/users/${action.userId}/information.json?auth=${action.token}`, action.userInformation)
+        // yield put(actionCreators.saveUserDataSuccess(response.data.name, action.order))
+    } catch (error) {
+        alert(error)
+        // yield put(actionCreators.saveUserDataFail(error))
+    }
+}
