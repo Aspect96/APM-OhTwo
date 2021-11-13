@@ -12,6 +12,8 @@ import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
+import Container from '@mui/material/Container';
+
 import About from './components/About/About';
 import Menu  from './components/Menu/Menu';
 import Home  from './components/Home/Home';
@@ -32,9 +34,7 @@ sagaMiddleware.run(watchAuth)
 class App extends Component {
   renderNavBar() { // Left this here so that we can change the menu when the user is logged in.
     return (
-      <header className="AppHeader">
-        <Menu />
-      </header>
+      <Menu />
     )
   }
 
@@ -42,18 +42,17 @@ class App extends Component {
     return (
       <BrowserRouter basename="/ohtwo">
         <Provider store={store}>
-          <div className="App">
             {this.renderNavBar()}
 
-            <Switch>
-              <Route path="/items" />
-              <Route path="/profile" />
-              <Route path="/login" component={Login} />
-              <Route path="/" exact component={Home} />
-              <Route path="/about" component={About} />
-            </Switch>
-
-          </div>
+            <Container sx={{ minHeight: '100%' }}>
+              <Switch>
+                <Route path="/items" />
+                <Route path="/profile" />
+                <Route path="/login" component={Login} />
+                <Route path="/" exact component={Home} />
+                <Route path="/about" component={About} />
+              </Switch>
+            </Container>
         </Provider>
       </BrowserRouter>
     )

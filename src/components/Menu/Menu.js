@@ -1,7 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import logo from '../../o2_icon.svg'; // icon from https://www.freepik.com/free-icon/oxygen_720197.htm
 
 import './Menu.css'
 
@@ -17,47 +22,29 @@ class Menu extends React.Component {
 
   render() { 
     return (
-      <nav>
-        <ul className="Menu-nav">
-          <li className="Menu-nav-item left">
-            <NavLink className="Menu-nav-link" to="/" exact>
-              Home
-            </NavLink>
-          </li>
-          <li className="Menu-nav-item left">
-            <NavLink className="Menu-nav-link" to="/items">
-              Items
-            </NavLink>
-          </li>
+      <AppBar position="sticky">
+        <Toolbar>
+        <img src={logo} height="40px" alt="logo" style={{filter:'brightness(200%) saturate(0%)', marginRight:'7px'}} />
+          <Typography variant="h5" component="div" sx={{ mr:5 }}>
+            0W2L
+          </Typography>
+          <Button variant="text" color="inherit" href="/">Home</Button>
+          <Button variant="text" color="inherit" href="/items">Items</Button>
+
+          <Box sx={{ flexGrow: 1 }} />
 
           { !this.props.isAuth &&
-            <li className="Menu-nav-item right">
-              <NavLink className="Menu-nav-link" to="/login" >
-                {"Login"}
-              </NavLink>
-            </li>
+            <Button variant="text" color="inherit" href="/login">Login</Button>
           }
           { this.props.isAuth &&
-            <li className="Menu-nav-item right">
-              <NavLink className="Menu-nav-link logout" to={"/"} exact onClick={this.userLogout}>
-                {"Logout"}
-              </NavLink>
-            </li>
+            <Button variant="text" color="inherit" onClick={this.userLogout} href="/">Logout</Button>
           }
-          <li className="Menu-nav-item right">
-            <NavLink className="Menu-nav-link" to="/about">
-              About
-            </NavLink>
-          </li>
           { this.props.isAuth &&
-            <li className="Menu-nav-item right">
-              <NavLink className="Menu-nav-link" to="/profile">
-                Profile
-              </NavLink>
-            </li>
+            <Button variant="text" color="inherit" href="/profile">Profile</Button>
           }
-        </ul>
-      </nav>
+          <Button variant="text" color="inherit" href="/about">About</Button>
+        </Toolbar>
+      </AppBar>
     );
   }
 }
