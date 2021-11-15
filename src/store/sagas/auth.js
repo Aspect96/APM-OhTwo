@@ -39,7 +39,9 @@ export function* authUserSaga(action) {
         
         let { localId, idToken, expiresIn } = response.data
         yield updateData(idToken, localId, expiresIn)
-        yield put(actionCreators.saveUserDataOnFirebase(localId, idToken, { ...action.userInformation, email: action.email }))
+        if (action.isSignUp) {
+            yield put(actionCreators.saveUserDataOnFirebase(localId, idToken, { ...action.userInformation, email: action.email }))
+        }
     } catch (error) {
         const err = error.response ?
             error.response.data.error :
