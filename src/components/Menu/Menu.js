@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as actionCreators from '../../store/actions';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -28,21 +29,21 @@ class Menu extends React.Component {
           <Typography variant="h5" component="div" sx={{ mr:5 }}>
             0W2L
           </Typography>
-          <Button variant="text" color="inherit" href="/">Home</Button>
-          <Button variant="text" color="inherit" href="/items">Items</Button>
+          <Button variant="text" color="inherit" component={Link} to="/">Home</Button>
+          <Button variant="text" color="inherit" component={Link} to="/items">Items</Button>
 
           <Box sx={{ flexGrow: 1 }} />
 
           { !this.props.isAuth &&
-            <Button variant="text" color="inherit" href="/login">Login</Button>
+            <Button variant="text" color="inherit" component={Link} to="/login">Login</Button>
           }
           { this.props.isAuth &&
-            <Button variant="text" color="inherit" onClick={this.userLogout} href="/">Logout</Button>
+            <Button variant="text" color="inherit" onClick={this.userLogout} component={Link} to="/">Logout</Button>
           }
           { this.props.isAuth &&
-            <Button variant="text" color="inherit" href="/profile">Profile</Button>
+            <Button variant="text" color="inherit" component={Link} to="/profile">Profile</Button>
           }
-          <Button variant="text" color="inherit" href="/about">About</Button>
+          <Button variant="text" color="inherit" component={Link} to="/about">About</Button>
         </Toolbar>
       </AppBar>
     );
