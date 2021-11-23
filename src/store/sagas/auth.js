@@ -11,10 +11,10 @@ export function* logoutSaga(action) {
     yield put(actionCreators.authLogout())
 }
 
-// export function* checkAuthTimeoutSaga(action) {
-//     yield delay(action.expirationTime)
-//     yield put(actionCreators.authLogoutStart())
-// }
+export function* checkAuthTimeoutSaga(action) {
+    yield delay(action.expirationTime)
+    yield put(actionCreators.authLogoutStart())
+}
 
 export function* authUserSaga(action) {
     yield put(actionCreators.authSent())
@@ -60,30 +60,74 @@ function* updateData(idToken, localId, expiresIn) {
     yield localStorage.setItem(process.env.REACT_APP_USERID_KEY, localId)
     yield localStorage.setItem(process.env.REACT_APP_EXPIRATION_DATE_KEY, expirationDate)
     yield put(actionCreators.authSuccess(idToken, localId))
-    // yield put(actionCreators.checkAuthTimeout(expiresIn * 1000))
+    yield put(actionCreators.checkAuthTimeout(expiresIn * 1000))
 }
 
-// export function* authCheckStateSaga(action) {
-//     const token = yield localStorage.getItem(process.env.REACT_APP_TOKEN_KEY)
-//     const userId = yield localStorage.getItem(process.env.REACT_APP_USERID_KEY)
-//     if (token && userId) {
-//         const expirationDate = yield new Date(localStorage.getItem(process.env.REACT_APP_EXPIRATION_DATE_KEY))
-//         if (expirationDate > new Date()) {
-//             yield put(actionCreators.authSuccess())
-//             yield put(actionCreators.checkAuthTimeout(expirationDate.getTime() - new Date().getTime()))
-//         } else {
-//             yield put(actionCreators.authLogoutStart())
-//         }
-//     } else {
-//         yield put(actionCreators.authLogoutStart())
-//     }
-// }
+export function* authCheckStateSaga(action) {
+    const token = yield localStorage.getItem(process.env.REACT_APP_TOKEN_KEY)
+    const userId = yield localStorage.getItem(process.env.REACT_APP_USERID_KEY)
+    if (token && userId) {
+        console.log("auto auth: " + token)
+        const expirationDate = yield new Date(localStorage.getItem(process.env.REACT_APP_EXPIRATION_DATE_KEY))
+        if (expirationDate > new Date()) {
+            yield put(actionCreators.authSuccess(token, userId))
+            yield put(actionCreators.checkAuthTimeout(expirationDate.getTime() - new Date().getTime()))
+        } else {
+            yield put(actionCreators.authLogoutStart())
+        }
+    } else {
+        yield put(actionCreators.authLogoutStart())
+    }
+}
 
 export function* saveUserDataSaga(action) {
     // yield put(actionCreators.saveUserDataSent())
 
     try {
         /*const response =*/ yield axios.post(`/users/${action.userId}/information.json?auth=${action.token}`, action.userInformation)
+        // yield put(actionCreators.saveUserDataSuccess(response.data.name, action.order))
+    } catch (error) {
+        alert(error)
+        // yield put(actionCreators.saveUserDataFail(error))
+    }
+}
+
+export function* fetchUserDataSaga(action) {
+    const token = yield localStorage.getItem(process.env.REACT_APP_TOKEN_KEY)
+    const userId = yield localStorage.getItem(process.env.REACT_APP_USERID_KEY)
+
+    // yield put(actionCreators.fetchUserDataSent())
+    try {
+        const response = yield axios.get(`/users/${userId}/information.json?auth=${token}`)
+        const information = response.data
+            ? Object.keys(response.data)
+                .map((key) => {
+                    return {
+                        id: key,
+                        ...response.data[key]
+                    }
+                })
+            : []
+        console.log(information)
+        yield put(actionCreators.fetchUserDataSuccess(information[0]))
+    } catch (error) {
+        alert(error)
+        const err = error.response ?
+            error.response.data.error :
+            error.request ?
+                error.request :
+                error.message
+        console.log(err)
+        // yield put(actionCreators.fetchOrdersFail(err))
+    }
+}
+
+export function* updateUserDataSaga(action) {
+    // yield put(actionCreators.saveUserDataSent())
+
+    console.log(action.token)
+    try {
+        /*const response =*/ yield axios.put(`/users/${action.userId}/information/${action.id}.json?auth=${action.token}`, action.userInformation)
         // yield put(actionCreators.saveUserDataSuccess(response.data.name, action.order))
     } catch (error) {
         alert(error)

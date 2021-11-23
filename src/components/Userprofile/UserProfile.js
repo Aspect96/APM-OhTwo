@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 import * as actionCreators from '../../store/actions'
 
@@ -80,6 +81,11 @@ class Userprofile extends Component {
       }
     },
     valid: false,
+    editing: false
+  }
+
+  componentDidMount() {
+    this.props.fetchUserData()
   }
 
   checkValidity = (value, rules) => {
@@ -146,8 +152,60 @@ class Userprofile extends Component {
       username: this.state.form.username.value
     }
 
-  //TODO: uncommment later
-  //this.props.saveProfile(this.state.form.email.value, this.state.form.password.value, this.state.isRegister, userInformation)
+    //TODO: uncommment later
+    console.log(this.props.token)
+    this.props.updateProfile(this.props.userId, this.props.token, this.props.information.id, userInformation)
+  }
+
+  toggleEdit = () => {
+
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        editing: !prevState.editing,
+        form: {
+          ...prevState.form,
+          username: {
+            ...prevState.form.username,
+            value: this.props.information.username
+          },
+          firstName: {
+            ...prevState.form.firstName,
+            value: this.props.information.firstName
+          },
+          lastName: {
+            ...prevState.form.lastName,
+            value: this.props.information.lastName
+          },
+          city: {
+            ...prevState.form.city,
+            value: this.props.information.city
+          },
+          address: {
+            ...prevState.form.address,
+            value: this.props.information.address
+          },
+          phone: {
+            ...prevState.form.phone,
+            value: this.props.information.phone
+          },
+        }
+      }
+    })
+  }
+
+  renderUserInfo() {
+    console.log(this.props.information)
+    return (
+      <div>
+        <p>Username: {this.props.information.username}</p>
+        <p>First Name: {this.props.information.firstName}</p>
+        <p>Last Name: {this.props.information.lastName}</p>
+        <p>City: {this.props.information.city}</p>
+        <p>Address: {this.props.information.address}</p>
+        {this.props.information.phone && <p>Phone: {this.props.information.phone}</p>}
+      </div>
+    )
   }
 
   renderForm() {
@@ -181,7 +239,7 @@ class Userprofile extends Component {
           loadingPosition="start"
           startIcon={<SaveIcon />}
           variant="text"
-          disabled={!this.state.valid}
+          disabled={!this.state.valid || this.props.loading}
           type="submit"
         >
           {'SAVE'}
@@ -192,8 +250,8 @@ class Userprofile extends Component {
 
   // TODO: Add lifecycle 'beforeMounting component' to retrieve userinformation from firebase
   // NOTE: Or we include that inside the user auth that is send back.
-
   render() {
+    console.log(this.props.token)
     return (
       <Box sx={{ my:2 }}>
         { !this.props.isAuth ?
@@ -201,7 +259,8 @@ class Userprofile extends Component {
             <div className="Profile">
               <Typography variant="h3" component="div" className="App-title-primary-color" sx={{ mb:2 }}>Edit your information</Typography>
                 <p className="Profile-validation-error" >{this.props.error && this.props.error.message}</p>
-                {this.renderForm()}
+                {this.state.editing ? this.renderForm() : (this.props.information && this.renderUserInfo())}
+                <Button variant="text" color="inherit" onClick={this.toggleEdit} >{this.state.editing ? "Cancel" : "Edit"}</Button>
             </div>
         }
     </Box>
@@ -211,16 +270,20 @@ class Userprofile extends Component {
 
 const mapStateToProps = state => {
   return {
-      loading: false, // TODO: loading for saving/retrieving? profile and then showing a success message or error
+      loading: state.auth.loading, // TODO: loading for saving/retrieving? profile and then showing a success message or error
       error: state.auth.error, // 
-      isAuth: state.auth.token !== null
+      isAuth: state.auth.token !== null,
+      token: state.auth.token,
+      userId: state.auth.userId,
+      information: state.auth.information
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
       // TODO: actionCreator and send it to firebase
-      //saveProfile: (userInformation) => dispatch(actionCreators.saveProfile(userInformation)),
+      updateProfile: (userId, token, id, userInformation) => dispatch(actionCreators.updateUserDataOnFirebase(userId, token, id, userInformation)),
+      fetchUserData: () => dispatch(actionCreators.fetchUserData())
   }
 }
  

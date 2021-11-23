@@ -21,10 +21,11 @@ import Login   from './components/Login/Login';
 import Profile from './components/Userprofile/UserProfile';
 
 // For this to work in your development browser you are going to need to add the extension Redux DevTools, else just comment the development case
-const composeEnhancers = process.env.NODE_ENV === 'development'
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : null
-    || compose
+// const composeEnhancers = process.env.NODE_ENV === 'development'
+//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+//     : null
+//     || compose
+const composeEnhancers = null || compose
 
 const sagaMiddleware = createSagaMiddleware()
 

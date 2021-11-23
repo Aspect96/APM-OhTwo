@@ -6,7 +6,16 @@ const initialState = {
     userId: null,
     error: null,
     loading: false,
-    redirectPath: ''
+    redirectPath: '',
+    information: {
+        address: "",
+        city: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        phone: "",
+        username: ""
+    }
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +25,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.AUTH_FAIL: return authFail(state, action)
         case actionTypes.AUTH_LOGOUT: return authLogout(state, action)
         case actionTypes.SET_AUTH_REDIRECT_PATH: return setRedirectPath(state, action)
+        case actionTypes.FETCH_USER_DATA_SUCCESS: return setUserInfo(state, action)
         default: return state
     }
 }
@@ -49,6 +59,13 @@ const authLogout = (state, action) => {
 const setRedirectPath = (state, action) => {
     return utils.updateObject(state, {
         redirectPath: action.path
+    })
+}
+
+const setUserInfo = (state, action) => {
+    return utils.updateObject(state, {
+        information: action.information,
+        loading: false
     })
 }
 

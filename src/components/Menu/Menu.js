@@ -1,20 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as actionCreators from '../../store/actions';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import logo from '../../o2_icon.svg'; // icon from https://www.freepik.com/free-icon/oxygen_720197.htm
 
+import logo from '../../o2_icon.svg'; // icon from https://www.freepik.com/free-icon/oxygen_720197.htm
 import './Menu.css'
+
+import * as actionCreators from '../../store/actions';
 
 class Menu extends React.Component {
   constructor(props) {
     super(props)
     this.userLogout = this.userLogout.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.autoSignOn()
   }
 
   userLogout() {
@@ -58,8 +64,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      // auth: (email, password, isSignup) => dispatch(actionCreators.auth(email, password, isSignup))
-      logout: () => dispatch(actionCreators.authLogoutStart())
+      logout: () => dispatch(actionCreators.authLogoutStart()),
+      autoSignOn: () => dispatch(actionCreators.authCheckState())
   }
 }
 

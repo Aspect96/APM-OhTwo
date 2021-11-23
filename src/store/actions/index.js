@@ -5,8 +5,11 @@ export {
     authLogout,
     authFail,
     authSuccess,
-    // checkAuthTimeout,
+    checkAuthTimeout,
     authLogoutStart,
     setRedirectPath,
-    // authCheckState
+    authCheckState,
+    fetchUserData,
+    fetchUserDataSuccess,
+    updateUserDataOnFirebase
 } from './auth'

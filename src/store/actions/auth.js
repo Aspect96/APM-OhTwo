@@ -40,18 +40,18 @@ export const authLogout = () => {
     }
 }
 
-// export const checkAuthTimeout = (expirationTime) => {
-//     return {
-//         type: actionTypes.CHECK_AUTH_TIMEOUT,
-//         expirationTime
-//     }
-// }
+export const checkAuthTimeout = (expirationTime) => {
+    return {
+        type: actionTypes.CHECK_AUTH_TIMEOUT,
+        expirationTime
+    }
+}
 
-// export const authCheckState = () => {
-//     return {
-//         type: actionTypes.CHECK_AUTH_STATE
-//     }
-// }
+export const authCheckState = () => {
+    return {
+        type: actionTypes.CHECK_AUTH_STATE
+    }
+}
 
 export const auth = (email, password, isSignUp, userInformation) => {
     return {
@@ -67,6 +67,29 @@ export const saveUserDataOnFirebase = (userId, token, userInformation) => {
     return {
         type: actionTypes.AUTH_SAVE_USER_DATA,
         userInformation,
+        token,
+        userId
+    }
+}
+
+export const fetchUserData = () => {
+    return {
+        type: actionTypes.FETCH_USER_DATA
+    }
+}
+
+export const fetchUserDataSuccess = (information) => {
+    return {
+        type: actionTypes.FETCH_USER_DATA_SUCCESS,
+        information
+    }
+}
+
+export const updateUserDataOnFirebase = (userId, token, id, userInformation) => {
+    return {
+        type: actionTypes.AUTH_UPDATE_USER_DATA,
+        userInformation,
+        id,
         token,
         userId
     }

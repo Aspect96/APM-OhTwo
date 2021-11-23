@@ -124,7 +124,7 @@ class Login extends Component {
     if (rules.samePassword) {
       isValid &= (value === this.state.form.password.value)
     }
-    if (rules.number && value != '') {
+    if (rules.number && value !== '') {
       var regexp = /\d/g;
       isValid &= regexp.test(value)
     }
@@ -156,9 +156,12 @@ class Login extends Component {
     }
 
     console.log(this.checkFormValidity(form) && (this.state.isRegister ? this.checkFormValidity(this.state.regForm) : true))
-    this.setState({
+    this.setState(prevState => {
+      return {
+        ...prevState,
         form,
         valid: this.checkFormValidity(form) && (this.state.isRegister ? this.checkFormValidity(this.state.regForm) : true)
+      }
     })
   }
 
@@ -180,9 +183,12 @@ class Login extends Component {
     }
 
     console.log(this.checkFormValidity(regForm) && (this.state.isRegister ? this.checkFormValidity(this.state.form) : true))
-    this.setState({
-      regForm,
-      valid: this.checkFormValidity(regForm) && (this.state.isRegister ? this.checkFormValidity(this.state.form) : true)
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        regForm,
+        valid: this.checkFormValidity(regForm) && (this.state.isRegister ? this.checkFormValidity(this.state.form) : true)
+      }
     })
   }
 
