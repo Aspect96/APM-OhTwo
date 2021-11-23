@@ -14,10 +14,11 @@ import 'primeicons/primeicons.css';
 
 import Container from '@mui/material/Container';
 
-import About from './components/About/About';
-import Menu  from './components/Menu/Menu';
-import Home  from './components/Home/Home';
-import Login from './components/Login/Login';
+import About   from './components/About/About';
+import Menu    from './components/Menu/Menu';
+import Home    from './components/Home/Home';
+import Login   from './components/Login/Login';
+import Profile from './components/Userprofile/UserProfile';
 
 // For this to work in your development browser you are going to need to add the extension Redux DevTools, else just comment the development case
 const composeEnhancers = process.env.NODE_ENV === 'development'
@@ -32,7 +33,7 @@ const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk, sagaM
 sagaMiddleware.run(watchAuth)
 
 class App extends Component {
-  renderNavBar() { // Left this here so that we can change the menu when the user is logged in.
+  renderNavBar() {
     return (
       <Menu />
     )
@@ -47,7 +48,7 @@ class App extends Component {
             <Container sx={{ minHeight: '100%' }}>
               <Switch>
                 <Route path="/items" />
-                <Route path="/profile" />
+                <Route path="/profile" component={Profile} />
                 <Route path="/login" component={Login} />
                 <Route path="/" exact component={Home} />
                 <Route path="/about" component={About} />
