@@ -7,6 +7,10 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import MUIMenu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import IconButton from '@mui/material/IconButton';
 
 import logo from '../../o2_icon.svg'; // icon from https://www.freepik.com/free-icon/oxygen_720197.htm
 import './Menu.css'
@@ -17,6 +21,32 @@ class Menu extends React.Component {
   constructor(props) {
     super(props)
     this.userLogout = this.userLogout.bind(this)
+
+    this.state = {
+      anchorE1: {
+        anchor: null,
+        open:   false
+      }
+    }
+  }
+
+  openUserMenu = (event) => {
+    this.setState({
+      anchorE1: {
+        anchor: event.currentTarget,
+        open:   Boolean(event.currentTarget)
+      }
+    })
+  }
+
+  closeUserMenu= () => {
+    this.setState({
+      anchorE1: {
+        anchor: null,
+        open:   false
+      }
+    })
+    return true
   }
 
   componentDidMount() {
@@ -40,16 +70,45 @@ class Menu extends React.Component {
 
           <Box sx={{ flexGrow: 1 }} />
 
+          <Button variant="text" color="inherit" component={Link} to="/about">About</Button>
+
+          { this.props.isAuth &&
+            <div>
+              <IconButton
+                size="large"
+                aria-label="user account menu"
+                aria-controls="user-menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+                onClick={this.openUserMenu}
+              >
+                <AccountCircle />
+              </IconButton>
+              <MUIMenu
+                id="user-menu-appbar"
+                anchorE1={this.state.anchorE1.anchor}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right'
+                }}
+                open={Boolean(this.state.anchorE1.open)}
+                onClose={this.closeUserMenu}
+                sx={{ mt: 4 }} // or mt: 5 (if it should not overlap with the AccountCircle IconButton)
+              >
+                <MenuItem component={Link} color="inherit" onClick={this.closeUserMenu} to="/profile">Profile</MenuItem>
+                <MenuItem component={Link} color="inherit" onClick={this.closeUserMenu && this.userLogout} to="/">Logout</MenuItem>
+              </MUIMenu>
+            </div>
+          }
+
           { !this.props.isAuth &&
             <Button variant="text" color="inherit" component={Link} to="/login">Login</Button>
           }
-          { this.props.isAuth &&
-            <Button variant="text" color="inherit" onClick={this.userLogout} component={Link} to="/">Logout</Button>
-          }
-          { this.props.isAuth &&
-            <Button variant="text" color="inherit" component={Link} to="/profile">Profile</Button>
-          }
-          <Button variant="text" color="inherit" component={Link} to="/about">About</Button>
         </Toolbar>
       </AppBar>
     );
