@@ -17,6 +17,7 @@ import Container from '@mui/material/Container';
 import About   from './components/About/About';
 import Menu    from './components/Menu/Menu';
 import Home    from './components/Home/Home';
+import Items   from './components/Items/Items';
 import Login   from './components/Login/Login';
 import Profile from './components/Userprofile/UserProfile';
 
@@ -48,7 +49,7 @@ class App extends Component {
 
             <Container sx={{ minHeight: '100%' }}>
               <Switch>
-                <Route path="/items" />
+                <Route path="/items" component={Items} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/login" component={Login} />
                 <Route path="/" exact component={Home} />

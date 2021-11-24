@@ -133,7 +133,6 @@ class Userprofile extends Component {
       }
     }
 
-    console.log(this.checkFormValidity(form))
     this.setState({
         form,
         valid: this.checkFormValidity(form)
@@ -152,8 +151,6 @@ class Userprofile extends Component {
       username: this.state.form.username.value
     }
 
-    //TODO: uncommment later
-    console.log(this.props.token)
     this.props.updateProfile(this.props.userId, this.props.token, this.props.information.id, userInformation)
   }
 
@@ -195,7 +192,6 @@ class Userprofile extends Component {
   }
 
   renderUserInfo() {
-    console.log(this.props.information)
     return (
       <div>
         <p>Username: {this.props.information.username}</p>
@@ -248,10 +244,7 @@ class Userprofile extends Component {
     )
   }
 
-  // TODO: Add lifecycle 'beforeMounting component' to retrieve userinformation from firebase
-  // NOTE: Or we include that inside the user auth that is send back.
   render() {
-    console.log(this.props.token)
     return (
       <Box sx={{ my:2 }}>
         { !this.props.isAuth ?

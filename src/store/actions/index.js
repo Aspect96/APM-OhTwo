@@ -13,3 +13,9 @@ export {
     fetchUserDataSuccess,
     updateUserDataOnFirebase
 } from './auth'
+
+export {
+    fetchItems,
+    fetchItemsSent,
+    fetchItemsSuccess
+} from './items'

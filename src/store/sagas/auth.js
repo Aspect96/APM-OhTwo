@@ -67,7 +67,6 @@ export function* authCheckStateSaga(action) {
     const token = yield localStorage.getItem(process.env.REACT_APP_TOKEN_KEY)
     const userId = yield localStorage.getItem(process.env.REACT_APP_USERID_KEY)
     if (token && userId) {
-        console.log("auto auth: " + token)
         const expirationDate = yield new Date(localStorage.getItem(process.env.REACT_APP_EXPIRATION_DATE_KEY))
         if (expirationDate > new Date()) {
             yield put(actionCreators.authSuccess(token, userId))
@@ -108,7 +107,6 @@ export function* fetchUserDataSaga(action) {
                     }
                 })
             : []
-        console.log(information)
         yield put(actionCreators.fetchUserDataSuccess(information[0]))
     } catch (error) {
         alert(error)

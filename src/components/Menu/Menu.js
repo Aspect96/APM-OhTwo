@@ -23,30 +23,21 @@ class Menu extends React.Component {
     this.userLogout = this.userLogout.bind(this)
 
     this.state = {
-      anchorE1: {
-        anchor: null,
-        open:   false
-      }
+      anchorEl: null
     }
   }
 
   openUserMenu = (event) => {
     this.setState({
-      anchorE1: {
-        anchor: event.currentTarget,
-        open:   Boolean(event.currentTarget)
-      }
+      anchorEl: event.currentTarget
     })
   }
 
   closeUserMenu= () => {
     this.setState({
-      anchorE1: {
-        anchor: null,
-        open:   false
-      }
+      anchorEl: null
     })
-    return true
+    // return true
   }
 
   componentDidMount() {
@@ -86,7 +77,7 @@ class Menu extends React.Component {
               </IconButton>
               <MUIMenu
                 id="user-menu-appbar"
-                anchorE1={this.state.anchorE1.anchor}
+                anchorEl={this.state.anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
                   horizontal: 'right'
@@ -96,12 +87,12 @@ class Menu extends React.Component {
                   vertical: 'top',
                   horizontal: 'right'
                 }}
-                open={Boolean(this.state.anchorE1.open)}
+                open={Boolean(this.state.anchorEl)}
                 onClose={this.closeUserMenu}
                 sx={{ mt: 4 }} // or mt: 5 (if it should not overlap with the AccountCircle IconButton)
               >
-                <MenuItem component={Link} color="inherit" onClick={this.closeUserMenu} to="/profile">Profile</MenuItem>
-                <MenuItem component={Link} color="inherit" onClick={this.closeUserMenu && this.userLogout} to="/">Logout</MenuItem>
+                <MenuItem key="profile" component={Link} color="inherit" onClick={this.closeUserMenu} to="/profile">Profile</MenuItem>
+                <MenuItem key="logout" component={Link} color="inherit" onClick={this.closeUserMenu && this.userLogout} to="/">Logout</MenuItem>
               </MUIMenu>
             </div>
           }
