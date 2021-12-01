@@ -91,7 +91,8 @@ class Userprofile extends Component {
       }
     },
     valid: false,
-    editing: false
+    editing: false,
+    adding: false
   }
 
   componentDidMount() {
@@ -167,6 +168,24 @@ class Userprofile extends Component {
     this.props.updateProfile(this.props.userId, this.props.token, this.props.information.id, userInformation)
   }
 
+  openAddItem = () => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        adding: true,
+      }
+    })
+  }
+
+  closeAddItem = () => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        adding: false,
+      }
+    })
+  }
+
   toggleEdit = () => {
 
     this.setState(prevState => {
@@ -208,6 +227,25 @@ class Userprofile extends Component {
     return 'user_id' in item && item.user_id === this.props.userId
   }
 
+  renderAddItem() {
+    return (
+      <Card sx={{ 
+        display: "flex", 
+        flexDirection: "column", 
+        alignItems: "center", 
+        width: "100%", 
+        marginBottom: "10px",
+        padding: "5px"
+      }}>
+        add item here
+        <div>
+          <Button variant="contained" color="primary">SAVE</Button>
+          <Button variant="text" color="primary" onClick={this.closeAddItem}>CANCEL</Button>
+        </div>
+      </Card>
+    )
+  }
+
   renderUserItems() {
     const items = this.props.items ? this.props.items.filter(this.filterById.bind(this)) : []
     console.log(items)
@@ -220,24 +258,24 @@ class Userprofile extends Component {
             <Grid item xs={2} sm={4} md={4} key={item_id}>
               <Card sx={{ display: 'flex' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                  <CardMedia
+                    component="img"
+                    sx={{ height: "150px", objectFit: "contain" }}
+                    src={information.url} 
+                    alt="Can't load image properly"
+                  />
                   <CardContent sx={{ flex: '1 0 auto'}}>
-                    <Typography component="div" variant="h5">
+                    <Typography component="div" variant="h6">
                       {information.name}
                     </Typography>
-                    <Typography variant="subtitle1" color="text.secondary" component="div">
-                      Description of the item should go here
+                    <Typography variant="subtitle1" color="text.secondary" component="div" sx={{ height: "100px" }}>
+                      {information.description}
                     </Typography>
                   </CardContent>
                   <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
                     <Button color="error">REMOVE</Button>
                   </Box>
                 </Box>
-                <CardMedia
-                  component="img"
-                  sx={{ maxWidth: 150 }}
-                  src={information.url} 
-                  alt="Can't load image properly"
-                />
               </Card>
             </Grid>
           )
@@ -333,11 +371,15 @@ class Userprofile extends Component {
               <Typography variant="h3" component="div" className="App-title-primary-color" sx={{ mb:2 }}>{this.props.information.username}</Typography>
               <p className="Profile-validation-error" >{this.props.error && this.props.error.message}</p>
               {this.state.editing ? this.renderForm() : (this.props.information && this.renderUserInfo())}
-              <Button variant="text" color="primary" onClick={this.toggleEdit} >{this.state.editing ? "Cancel" : "Edit Information"}</Button>
+              <Button variant="contained" color="primary" onClick={this.toggleEdit} sx={{ alignSelf: "flex-end" }}>{this.state.editing ? "Cancel" : "Edit"}</Button>
               
               <Divider className="Profile-info-item-divider" flexItem />
               
-              <Button variant="text" color="primary">ADD ITEM</Button>
+              <Typography variant="h4" component="div" className="App-title-primary-color" sx={{ mb:2, alignSelf: "flex-start" }}>
+                My items
+                <Button variant="contained" color="primary" sx={{ marginLeft: "5px" }} onClick={this.openAddItem}>ADD ITEM</Button>
+              </Typography>
+              {this.state.adding && this.renderAddItem()}
 
               {this.renderUserItems()}
             </div>

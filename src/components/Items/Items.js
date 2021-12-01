@@ -22,7 +22,7 @@ class Items extends Component{
       <Box sx={{ my:2 }}>
         <div className="Items">
           <Typography variant="h3" component="div" className="App-title-primary-color" sx={{ mb:2 }}>Items</Typography>
-          
+
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {items.map((item) => {
               const { item_id, ...information } = item
