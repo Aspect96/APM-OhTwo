@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import logo from '../../o2_icon.svg'; // icon from https://www.freepik.com/free-icon/oxygen_720197.htm
-import { InputText } from 'primereact/inputtext';
-import TextField from '@material-ui/core/TextField';
 import Box from '@mui/material/Box';
 
 import './Home.css'

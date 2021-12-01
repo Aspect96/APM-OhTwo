@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
@@ -10,10 +14,9 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+
+import ItemLink from '../Items/ItemLink/ItemLink';
 
 import * as actionCreators from '../../store/actions'
 
@@ -93,6 +96,9 @@ class Userprofile extends Component {
 
   componentDidMount() {
     this.props.fetchUserData()
+    if (this.props.items.length === 0) {
+      this.props.fetchItems(this.props.token, this.props.userId)
+    }
   }
 
   checkValidity = (value, rules) => {
@@ -198,16 +204,49 @@ class Userprofile extends Component {
     })
   }
 
+  filterById = (item) => {
+    return 'user_id' in item && item.user_id === this.props.userId
+  }
+
   renderUserItems() {
+    const items = this.props.items ? this.props.items.filter(this.filterById.bind(this)) : []
+    console.log(items)
+
     return (
-      <div>
-        user items
-      </div>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        {items.map((item) => {
+          const { item_id, ...information } = item
+          return (
+            <Grid item xs={2} sm={4} md={4} key={item_id}>
+              <Card sx={{ display: 'flex' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                  <CardContent sx={{ flex: '1 0 auto'}}>
+                    <Typography component="div" variant="h5">
+                      {information.name}
+                    </Typography>
+                    <Typography variant="subtitle1" color="text.secondary" component="div">
+                      Description of the item should go here
+                    </Typography>
+                  </CardContent>
+                  <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+                    <Button color="error">REMOVE</Button>
+                  </Box>
+                </Box>
+                <CardMedia
+                  component="img"
+                  sx={{ maxWidth: 150 }}
+                  src={information.url} 
+                  alt="Can't load image properly"
+                />
+              </Card>
+            </Grid>
+          )
+        })}
+      </Grid>
     )
   }
 
   renderUserInfo() {
-    console.log(this.props.information)
     return (
       <div>
         <List
@@ -296,8 +335,10 @@ class Userprofile extends Component {
               {this.state.editing ? this.renderForm() : (this.props.information && this.renderUserInfo())}
               <Button variant="text" color="primary" onClick={this.toggleEdit} >{this.state.editing ? "Cancel" : "Edit Information"}</Button>
               
-              <Divider className="Profile-info-item-dividedr" flexItem />
+              <Divider className="Profile-info-item-divider" flexItem />
               
+              <Button variant="text" color="primary">ADD ITEM</Button>
+
               {this.renderUserItems()}
             </div>
         }
@@ -313,7 +354,8 @@ const mapStateToProps = state => {
       isAuth: state.auth.token !== null,
       token: state.auth.token,
       userId: state.auth.userId,
-      information: state.auth.information
+      information: state.auth.information,
+      items: state.items.items
   }
 }
 
@@ -321,7 +363,8 @@ const mapDispatchToProps = dispatch => {
   return {
       // TODO: actionCreator and send it to firebase
       updateProfile: (userId, token, id, userInformation) => dispatch(actionCreators.updateUserDataOnFirebase(userId, token, id, userInformation)),
-      fetchUserData: () => dispatch(actionCreators.fetchUserData())
+      fetchUserData: () => dispatch(actionCreators.fetchUserData()),
+      fetchItems: () => dispatch(actionCreators.fetchItems())
   }
 }
  

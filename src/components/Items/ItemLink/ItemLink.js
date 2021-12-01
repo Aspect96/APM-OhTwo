@@ -17,7 +17,6 @@ class ItemLink extends Component{
             // square 
             component="img"
             src={this.props.information.url} 
-            // imageUrl={this.props.information.url} 
             alt="Can't load image properly"
           />
           <CardContent>
