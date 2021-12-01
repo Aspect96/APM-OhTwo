@@ -7,6 +7,13 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 
 import * as actionCreators from '../../store/actions'
 
@@ -191,15 +198,49 @@ class Userprofile extends Component {
     })
   }
 
-  renderUserInfo() {
+  renderUserItems() {
     return (
       <div>
-        <p>Username: {this.props.information.username}</p>
-        <p>First Name: {this.props.information.firstName}</p>
-        <p>Last Name: {this.props.information.lastName}</p>
-        <p>City: {this.props.information.city}</p>
-        <p>Address: {this.props.information.address}</p>
-        {this.props.information.phone && <p>Phone: {this.props.information.phone}</p>}
+        user items
+      </div>
+    )
+  }
+
+  renderUserInfo() {
+    console.log(this.props.information)
+    return (
+      <div>
+        <List
+          sx={{
+            width: '100%',
+            maxWidth: 360,
+            bgcolor: 'background.paper',
+          }}
+        >
+          <ListItem>
+            <ListItemText primary="Name" secondary={this.props.information.firstName + ' ' + this.props.information.lastName} />
+          </ListItem>
+          <Divider component="li" />
+          <ListItem>
+            <ListItemText 
+              primary="Address" 
+              secondary={this.props.information.address + ', ' + this.props.information.city} 
+            />
+          </ListItem>
+          <Divider component="li" />
+          <ListItem>
+            <ListItemText 
+              primary="Contact Information" 
+              secondary={
+                <React.Fragment>
+                  {"email: " + this.props.information.email}
+                  <br />
+                  {this.props.information.phone && "phone: " + this.props.information.phone}
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+        </List>
       </div>
     )
   }
@@ -250,13 +291,17 @@ class Userprofile extends Component {
         { !this.props.isAuth ?
             <Redirect to="/login" /> :
             <div className="Profile">
-              <Typography variant="h3" component="div" className="App-title-primary-color" sx={{ mb:2 }}>Edit your information</Typography>
-                <p className="Profile-validation-error" >{this.props.error && this.props.error.message}</p>
-                {this.state.editing ? this.renderForm() : (this.props.information && this.renderUserInfo())}
-                <Button variant="text" color="inherit" onClick={this.toggleEdit} >{this.state.editing ? "Cancel" : "Edit"}</Button>
+              <Typography variant="h3" component="div" className="App-title-primary-color" sx={{ mb:2 }}>{this.props.information.username}</Typography>
+              <p className="Profile-validation-error" >{this.props.error && this.props.error.message}</p>
+              {this.state.editing ? this.renderForm() : (this.props.information && this.renderUserInfo())}
+              <Button variant="text" color="primary" onClick={this.toggleEdit} >{this.state.editing ? "Cancel" : "Edit Information"}</Button>
+              
+              <Divider className="Profile-info-item-dividedr" flexItem />
+              
+              {this.renderUserItems()}
             </div>
         }
-    </Box>
+      </Box>
     )
   }
 }
