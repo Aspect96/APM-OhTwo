@@ -149,7 +149,7 @@ class Donations extends Component {
 
     const itemInformation = {
       address: undefined,
-      category: null,
+      category: this.state.category,
       description: this.state.form.description.value,
       email: this.props.information.email,
       name: this.state.form.name.value,
