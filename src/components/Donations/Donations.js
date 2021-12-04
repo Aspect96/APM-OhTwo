@@ -11,6 +11,10 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 
 import * as actionCreators from '../../store/actions'
 
@@ -42,10 +46,21 @@ class Donations extends Component {
         },
         valid: false,
         touched: false
+      },
+      url: {
+        type: 'text',
+        placeholder: 'Image URL',
+        value: '',
+        validation: {
+          required: true,
+          minLen: 3,
+          message: 'Min 3 characters'
+        },
+        valid: false,
+        touched: false
       }
     },
-    donationImageFile: null,
-    donationImageData: null,
+    category: "Electronic",
     valid: false,
     adding: false
   }
@@ -133,30 +148,20 @@ class Donations extends Component {
     event.preventDefault()
 
     const itemInformation = {
-      name: this.state.form.name.value,
+      address: undefined,
+      category: null,
       description: this.state.form.description.value,
-      imageData: this.state.donationImageData
+      email: this.props.information.email,
+      name: this.state.form.name.value,
+      phone: this.props.information.phone,
+      url: this.state.form.url.value
     }
 
     //this.props.addDonation(this.props.userId, this.props.token, this.props.information.id, itemInformation)
   }
 
-  imageChangeHandler = (event) => {
-    event.preventDefault()
-
-    this.setState({
-      donationImageFile: event.target.files[0]
-    })
-
-    let reader = new FileReader()
-
-    reader.onloadend = () => {
-      this.setState({
-        donationImageData: reader.result
-      })
-    }
-
-    reader.readAsDataURL(event.target.files[0])
+  categoryOnChangeHandler = (event) => {
+    this.setState({category: event.target.value})
   }
 
   renderAddItemForm() {
@@ -186,7 +191,22 @@ class Donations extends Component {
       <form className="App-standard-form" onSubmit={this.addDonationHandler}>
         {donation_inputs}
 
-        <input id="donation-image" type="file" accept="image/*" onChange={this.imageChangeHandler} />
+        <FormControl fullWidth sx={{ m:2 }}>
+          <InputLabel id="category-select-label">Category</InputLabel>
+          <Select
+            labelId="category-select-label"
+            id="category-select"
+            value={this.state.category}
+            label="Category"
+            onChange={this.categoryOnChangeHandler}
+          >
+            <MenuItem value={"Electronic"}>Electronic</MenuItem>
+            <MenuItem value={"Books"}>Books</MenuItem>
+            <MenuItem value={"Canned Food"}>Canned Food</MenuItem>
+            <MenuItem value={"Stuff"}>Stuff</MenuItem>
+            <MenuItem value={"Other"}>Other</MenuItem>
+          </Select>
+        </FormControl>
 
         <LoadingButton
           loading={this.props.loading}
