@@ -20,6 +20,7 @@ import Home    from './components/Home/Home';
 import Items   from './components/Items/Items';
 import Login   from './components/Login/Login';
 import Profile from './components/Userprofile/UserProfile';
+import Donations from './components/Donations/Donations';
 
 // For this to work in your development browser you are going to need to add the extension Redux DevTools, else just comment the development case
 // const composeEnhancers = process.env.NODE_ENV === 'development'
@@ -51,6 +52,7 @@ class App extends Component {
               <Switch>
                 <Route path="/items" component={Items} />
                 <Route path="/profile" component={Profile} />
+                <Route path="/donations" component={Donations} />
                 <Route path="/login" component={Login} />
                 <Route path="/" exact component={Home} />
                 <Route path="/about" component={About} />

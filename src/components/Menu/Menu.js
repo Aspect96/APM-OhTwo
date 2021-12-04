@@ -92,6 +92,7 @@ class Menu extends React.Component {
                 sx={{ mt: 4 }} // or mt: 5 (if it should not overlap with the AccountCircle IconButton)
               >
                 <MenuItem key="profile" component={Link} color="inherit" onClick={this.closeUserMenu} to="/profile">Profile</MenuItem>
+                <MenuItem key="donations" component={Link} color="inherit" onClick={this.closeUserMenu} to="/donations">Donations</MenuItem>
                 <MenuItem key="logout" component={Link} color="inherit" onClick={this.closeUserMenu && this.userLogout} to="/">Logout</MenuItem>
               </MUIMenu>
             </div>
