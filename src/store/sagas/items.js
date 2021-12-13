@@ -71,3 +71,30 @@ export function* postItemSaga(action) {
         alert(error)
     }
 }
+
+export function* deleteItemSaga(action) {
+    let { token, userId } = action
+
+    if (!token) {
+        token = yield localStorage.getItem(process.env.REACT_APP_TOKEN_KEY)
+    }
+    if (!userId) {
+        userId = yield localStorage.getItem(process.env.REACT_APP_USERID_KEY)
+    }
+
+    if (userId === action.item.user_id) {
+        console.log("trying to delete item")
+
+        yield put(actionCreators.deleteItemSent())
+
+        try {
+            const response = yield axios.delete(`/items/${userId}/${action.item.item_id}.json?auth=${token}`)
+            if (response.status === 200) {
+                yield put(actionCreators.deleteItemSuccess())
+                yield fetchItemsSaga({ token, userId })
+            } else throw 'Status code different from 200 when deleting an item'
+        } catch (error) {
+            alert(error)
+        }
+    }
+}

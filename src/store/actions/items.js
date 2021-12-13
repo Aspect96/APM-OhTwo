@@ -37,3 +37,22 @@ export const postItemSuccess = () => {
         type: actionTypes.POST_ITEM_SUCCESS
     }
 }
+
+export const deleteItem = (item => {
+    return {
+        type: actionTypes.DELETE_ITEM,
+        item
+    }
+})
+
+export const deleteItemSent = () => {
+    return {
+        type: actionTypes.DELETE_ITEM_SENT
+    }
+}
+
+export const deleteItemSuccess = () => {
+    return {
+        type: actionTypes.DELETE_ITEM_SUCCESS
+    }
+}

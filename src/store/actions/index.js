@@ -20,5 +20,8 @@ export {
     fetchItemsSuccess,
     postItem,
     postItemSent,
-    postItemSuccess
+    postItemSuccess,
+    deleteItem,
+    deleteItemSent,
+    deleteItemSuccess
 } from './items'

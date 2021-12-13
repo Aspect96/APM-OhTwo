@@ -165,6 +165,15 @@ class Donations extends Component {
     this.setState({category: event.target.value})
   }
 
+  removeItemClickedHandler = (user_id, item_id) => {
+    console.log("remove")
+    const item = {
+      user_id,
+      item_id
+    }
+    this.props.removeDonation(item)
+  }
+
   renderAddItemForm() {
     const donation_inputs = Object.keys(this.state.form)
     .map(key => {
@@ -270,7 +279,7 @@ class Donations extends Component {
                     </Typography>
                   </CardContent>
                   <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                    <Button color="error">REMOVE</Button>
+                    <Button color="error" onClick={() => this.removeItemClickedHandler(information.user_id, item_id)}>REMOVE</Button>
                   </Box>
                 </Box>
               </Card>
@@ -316,7 +325,8 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchItems: () => dispatch(actionCreators.fetchItems()),
     addDonation: (item) => dispatch(actionCreators.postItem(item)),
-    fetchUserData: () => dispatch(actionCreators.fetchUserData())
+    fetchUserData: () => dispatch(actionCreators.fetchUserData()),
+    removeDonation: (item) => dispatch(actionCreators.deleteItem(item))
   }
 }
 

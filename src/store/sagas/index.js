@@ -13,7 +13,8 @@ import {
 
 import {
     fetchItemsSaga,
-    postItemSaga
+    postItemSaga,
+    deleteItemSaga
 } from './items'
 
 export function* watchAuth() {
@@ -26,6 +27,7 @@ export function* watchAuth() {
         takeEvery(actionTypes.FETCH_USER_DATA, fetchUserDataSaga),
         takeEvery(actionTypes.AUTH_UPDATE_USER_DATA, updateUserDataSaga),
         takeEvery(actionTypes.FETCH_ITEMS, fetchItemsSaga),
-        takeEvery(actionTypes.POST_ITEM, postItemSaga)
+        takeEvery(actionTypes.POST_ITEM, postItemSaga),
+        takeEvery(actionTypes.DELETE_ITEM, deleteItemSaga)
     ])
 }
