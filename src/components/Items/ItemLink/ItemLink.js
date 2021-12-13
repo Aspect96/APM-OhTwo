@@ -53,7 +53,7 @@ class ItemLink extends Component{
               {this.props.information.phone && <br/>}
               {this.props.information.phone && "Phone: " + this.props.information.phone}
               <br/>
-              {"Address: " + this.props.information.address}
+              {/* {"Address: " + this.props.information.address} */}
             </Typography>}
           </CardContent>
           <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
