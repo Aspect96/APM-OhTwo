@@ -18,3 +18,22 @@ export const fetchItemsSuccess = (items) => {
         items
     }
 }
+
+export const postItem = (item) => {
+    return {
+        type: actionTypes.POST_ITEM,
+        item
+    }
+}
+
+export const postItemSent = () => {
+    return {
+        type: actionTypes.POST_ITEM_SENT
+    }
+}
+
+export const postItemSuccess = () => {
+    return {
+        type: actionTypes.POST_ITEM_SUCCESS
+    }
+}

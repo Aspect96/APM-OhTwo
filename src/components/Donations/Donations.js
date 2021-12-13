@@ -117,6 +117,7 @@ class Donations extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchUserData()
     if (this.props.items.length === 0) {
       this.props.fetchItems(this.props.token, this.props.userId)
     }
@@ -147,7 +148,7 @@ class Donations extends Component {
   addDonationHandler = (event) => {
     event.preventDefault()
 
-    const itemInformation = {
+    const item = {
       address: undefined,
       category: this.state.category,
       description: this.state.form.description.value,
@@ -157,7 +158,7 @@ class Donations extends Component {
       url: this.state.form.url.value
     }
 
-    //this.props.addDonation(this.props.userId, this.props.token, this.props.information.id, itemInformation)
+    this.props.addDonation(item)
   }
 
   categoryOnChangeHandler = (event) => {
@@ -314,7 +315,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchItems: () => dispatch(actionCreators.fetchItems()),
-    //addDonation: (userId, token, id, itemInformation) => dispatch(actionCreators.addItemDonationOnFirebase(userId, token, id, itemInformation)),
+    addDonation: (item) => dispatch(actionCreators.postItem(item)),
+    fetchUserData: () => dispatch(actionCreators.fetchUserData())
   }
 }
 

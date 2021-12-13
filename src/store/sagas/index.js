@@ -12,7 +12,8 @@ import {
 } from './auth'
 
 import {
-    fetchItemsSaga
+    fetchItemsSaga,
+    postItemSaga
 } from './items'
 
 export function* watchAuth() {
@@ -24,6 +25,7 @@ export function* watchAuth() {
         takeEvery(actionTypes.CHECK_AUTH_STATE, authCheckStateSaga),
         takeEvery(actionTypes.FETCH_USER_DATA, fetchUserDataSaga),
         takeEvery(actionTypes.AUTH_UPDATE_USER_DATA, updateUserDataSaga),
-        takeEvery(actionTypes.FETCH_ITEMS, fetchItemsSaga)
+        takeEvery(actionTypes.FETCH_ITEMS, fetchItemsSaga),
+        takeEvery(actionTypes.POST_ITEM, postItemSaga)
     ])
 }

@@ -17,5 +17,8 @@ export {
 export {
     fetchItems,
     fetchItemsSent,
-    fetchItemsSuccess
+    fetchItemsSuccess,
+    postItem,
+    postItemSent,
+    postItemSuccess
 } from './items'

@@ -47,3 +47,27 @@ export function* fetchItemsSaga(action) {
         // yield put(actionCreators.fetchOrdersFail(err))
     }
 }
+
+export function* postItemSaga(action) {
+    let { token, userId } = action
+
+    if (!token) {
+        token = yield localStorage.getItem(process.env.REACT_APP_TOKEN_KEY)
+    }
+    if (!userId) {
+        userId = yield localStorage.getItem(process.env.REACT_APP_USERID_KEY)
+    }
+
+    console.log("trying to post item")
+
+    yield put(actionCreators.postItemSent())
+
+    try {
+        const response = yield axios.post(`/items/${userId}.json?auth=${token}`, action.item)
+        if (response.status === 200) {
+            yield put(actionCreators.postItemSuccess())
+        } else throw 'Status code different from 200 when adding an item'
+    } catch (error) {
+        alert(error)
+    }
+}
