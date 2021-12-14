@@ -38,6 +38,13 @@ export const postItemSuccess = () => {
     }
 }
 
+export const setItemPosted = (itemPosted) => {
+    return {
+        type: actionTypes.SET_ITEM_POSTED,
+        itemPosted
+    }
+}
+
 export const deleteItem = (item => {
     return {
         type: actionTypes.DELETE_ITEM,

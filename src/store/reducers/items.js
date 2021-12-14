@@ -5,7 +5,8 @@ const initialState = {
     error: null,
     loading: false,
     items: [],
-    item: null
+    item: null,
+    itemPosted: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -15,6 +16,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.POST_ITEM: return postItem(state, action)
         case actionTypes.POST_ITEM_SENT: return postItemSent(state, action)
         case actionTypes.POST_ITEM_SUCCESS: return postItemSuccess(state, action)
+        case actionTypes.SET_ITEM_POSTED: return setItemPosted(state, action)
         default: return state
     }
 }
@@ -46,7 +48,14 @@ const postItemSent = (state, action) => {
 const postItemSuccess = (state, action) => {
     return utils.updateObject(state, {
         loading: false,
-        item: null
+        item: null,
+        itemPosted: true
+    })
+}
+
+const setItemPosted = (state, action) => {
+    return utils.updateObject(state, {
+        itemPosted: action.itemPosted
     })
 }
 

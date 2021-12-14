@@ -21,6 +21,7 @@ export {
     postItem,
     postItemSent,
     postItemSuccess,
+    setItemPosted,
     deleteItem,
     deleteItemSent,
     deleteItemSuccess

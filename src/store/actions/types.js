@@ -22,6 +22,7 @@ export const POST_ITEM = 'POST_ITEM'
 export const POST_ITEM_SENT = 'POST_ITEM_SENT'
 export const POST_ITEM_SUCCESS = 'POST_ITEM_SUCCESS'
 export const POST_ITEM_FAIL = 'POST_ITEM_FAIL'
+export const SET_ITEM_POSTED = 'SET_ITEM_POSTED'
 
 export const DELETE_ITEM = 'DELETE_ITEM'
 export const DELETE_ITEM_SENT = 'DELETE_ITEM_SENT'

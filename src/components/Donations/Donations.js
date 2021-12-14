@@ -161,6 +161,22 @@ class Donations extends Component {
     this.props.addDonation(item)
   }
 
+  successfullyPostedItem = () => {
+    this.props.setItemPosted(false)
+
+    this.props.fetchItems(this.props.token, this.props.userId)
+
+    this.setState({
+      form: {
+        name: { value: "" },
+        description: { value: "" },
+        url: { value: "" }
+      },
+      category: "Electronic",
+      adding: false
+    })
+  }
+
   categoryOnChangeHandler = (event) => {
     this.setState({category: event.target.value})
   }
@@ -243,7 +259,7 @@ class Donations extends Component {
         marginBottom: "10px",
         padding: "5px"
       }}>
-        {this.renderAddItemForm()}
+        {this.renderAddItemForm()} {this.props.itemPosted ? this.successfullyPostedItem() : ""}
         <div>
           {/* <Button variant="contained" color="primary">SAVE</Button> */}
           <Button variant="text" color="primary" onClick={this.closeAddItem}>CANCEL</Button>
@@ -317,7 +333,8 @@ const mapStateToProps = state => {
     token: state.auth.token,
     userId: state.auth.userId,
     information: state.auth.information,
-    items: state.items.items
+    items: state.items.items,
+    itemPosted: state.items.itemPosted
   }
 }
 
@@ -326,7 +343,8 @@ const mapDispatchToProps = dispatch => {
     fetchItems: () => dispatch(actionCreators.fetchItems()),
     addDonation: (item) => dispatch(actionCreators.postItem(item)),
     fetchUserData: () => dispatch(actionCreators.fetchUserData()),
-    removeDonation: (item) => dispatch(actionCreators.deleteItem(item))
+    removeDonation: (item) => dispatch(actionCreators.deleteItem(item)),
+    setItemPosted: (itemPosted) => dispatch(actionCreators.setItemPosted(itemPosted))
   }
 }
 
